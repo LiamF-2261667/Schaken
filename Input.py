@@ -1,3 +1,24 @@
+# Een functie om de letters om te zetten in cijfers
+def letterToNumber(letter):
+    if letter == 'A':
+        return 1
+    elif letter == 'B':
+        return 2
+    elif letter == 'C':
+        return 3
+    elif letter == 'D':
+        return 4
+    elif letter == 'E':
+        return 5
+    elif letter == 'F':
+        return 6
+    elif letter == 'G':
+        return 7
+    elif letter == 'H':
+        return 8
+
+selectedPosition = [1, 1]
+
 # Het selecteren van een stuk (bv: A6)
 def selectInput():
     # Aanvragen van de input en omzetten naar een array
@@ -17,4 +38,7 @@ def selectInput():
       print("Foutieve invoer, als tweede moet het cijfer gegeven worden!")
       return
     
-    print("letter: " + str(letter) + " | number: " + str(number))
+    selectedPosition[0] = letterToNumber(letter)
+    selectedPosition[1] = number
+
+    print("hor=" + str(selectedPosition[0]) + " ver=" + str(selectedPosition[1]))
