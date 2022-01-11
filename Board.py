@@ -1,4 +1,4 @@
-from colorama import Back
+from colorama import Back, Style
 
 # Het aanmaken van de "schaakbord"-matrix
 chess_board = [[" ", " ", " ", " ", " ", " ", " ", " "],
@@ -35,9 +35,9 @@ def DrawBoard():
         # Bepalen of het vakje donker of licht gekleurd moet zijn
         for j in range(0,8):
             if (i+j) % 2 == 0:
-                line += Back.LIGHTBLACK_EX + " " + chess_board[i][j] + " "
+                line += Back.LIGHTBLACK_EX + Style.BRIGHT + " " + chess_board[i][j] + " "
             else:
-                line += Back.WHITE + " " + chess_board[i][j] + " "
+                line += Back.WHITE + Style.BRIGHT + " " + chess_board[i][j] + " "
 
         # De achtergrondkleur stop zetten en de verticale coordinaat toevoegen
         lineNumber = 8 - i

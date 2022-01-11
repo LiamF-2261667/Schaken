@@ -24,7 +24,7 @@ def GetPieceColor(horizontal, vertical):
     if chess_board[ver][hor] == " ":
         return "null"
 
-    elif chess_board[ver][hor].__contains__(Fore.LIGHTWHITE_EX):
+    elif chess_board[ver][hor].__contains__(Fore.BLUE):
         return "white"
 
     else:
