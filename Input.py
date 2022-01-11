@@ -69,6 +69,7 @@ def selectInput():
     
     if GetPieceType(hor, ver) == "404":
         print("ERROR: 404")
+        return
     
     # Tijdelijke output
     print("Er staat een " + GetPieceColor(hor, ver) + " " + GetPieceType(hor, ver) + " op het coordinaat " + selected[0] + selected[1])
