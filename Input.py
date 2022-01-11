@@ -31,6 +31,10 @@ def selectInput():
     # Aanvragen van de input en omzetten naar een array
     selected = list(input("Geef het coordinaat van het stuk dat u wilt selecteren: "))
 
+    if len(selected) < 2:
+        print("Foutieve invoer, geef eerst de letter en daarna het cijfer in!")
+        return
+
     # Letter in een hoofdletter zetten
     letter = str.capitalize(selected[0])
     # Testen of de eerste invoer daadwerkelijk een letter is
