@@ -1,3 +1,6 @@
+from Piece import GetPieceType, GetPieceColor
+
+
 # Een functie om de letters om te zetten in cijfers
 def letterToNumber(letter):
     if letter == 'A':
@@ -17,7 +20,11 @@ def letterToNumber(letter):
     elif letter == 'H':
         return 8
 
-selectedPosition = [1, 1]
+    else:
+        return "null"
+
+hor = 1
+ver = 1
 
 # Het selecteren van een stuk (bv: A6)
 def selectInput():
@@ -38,7 +45,30 @@ def selectInput():
       print("Foutieve invoer, als tweede moet het cijfer gegeven worden!")
       return
     
-    selectedPosition[0] = letterToNumber(letter)
-    selectedPosition[1] = number
+    # Selectie opslaan
+    hor = letterToNumber(letter)
+    ver = number
 
-    print("hor=" + str(selectedPosition[0]) + " ver=" + str(selectedPosition[1]))
+    # Testen als de invoer een coordinaat kan zijn
+    if hor == "null":
+        print("Deze letter behoord niet tot het schaakbord!")
+        return
+    
+    if ver > 8:
+        print("Dit nummer behoord niet tot het schaakbord!")
+        return
+    
+    if ver < 1:
+        print("Dit nummer behoord niet tot het schaakbord!")
+        return
+
+    # Testen als er een stuk daadwerkelijk is op deze positie
+    if GetPieceType(hor, ver) == "null":
+        print("Er staat geen stuk op deze positie")
+        return
+    
+    if GetPieceType(hor, ver) == "404":
+        print("ERROR: 404")
+    
+    # Tijdelijke output
+    print("Er staat een " + GetPieceColor(hor, ver) + " " + GetPieceType(hor, ver) + " op het coordinaat " + selected[0] + selected[1])

@@ -29,3 +29,27 @@ def GetPieceColor(horizontal, vertical):
 
     else:
         return "black"
+
+
+def GetPieceType(horizontal, vertical):
+    hor = horizontal - 1
+    ver = (8-vertical)
+
+    if chess_board[ver][hor] == " ":
+        return "null"
+        
+    elif chess_board[ver][hor].__contains__("K"):
+        return "King"
+    elif chess_board[ver][hor].__contains__("Q"):
+        return "Queen"
+    elif chess_board[ver][hor].__contains__("B"):
+        return "Bishop"
+    elif chess_board[ver][hor].__contains__("H"):
+        return "Horse"
+    elif chess_board[ver][hor].__contains__("R"):
+        return "Rook"
+    elif chess_board[ver][hor].__contains__("P"):
+        return "Pawn"
+
+    else:
+        return "404"
