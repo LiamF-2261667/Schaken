@@ -44,4 +44,6 @@ def DrawBoard():
         line += Back.RESET + " " + str(lineNumber)
 
         # Het resultaat printen
-        print (line)
+        print(line)
+        
+    print("")
