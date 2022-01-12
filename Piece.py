@@ -24,13 +24,10 @@ def GetPieceColor(horizontal, vertical):
     if chess_board[ver][hor] == " ":
         return "null"
 
-    elif chess_board[ver][hor].__contains__(Fore.BLUE):
-        return "white"
-
-    else:
-        return "black"
+    return PieceCodeToColor(chess_board[ver][hor])
 
 
+# Bepalen welk stuk op een bepaald coordinaat staat
 def GetPieceType(horizontal, vertical):
     hor = horizontal - 1
     ver = (8-vertical)
@@ -38,18 +35,70 @@ def GetPieceType(horizontal, vertical):
     if chess_board[ver][hor] == " ":
         return "null"
         
-    elif chess_board[ver][hor].__contains__("K"):
+    name = PieceLetterToName(chess_board[ver][hor])
+    
+    if name == "null":
+        return "404"
+    
+    else:
+        return name
+
+
+# Functie om een letter naar de volledige naam om te zetten
+def PieceLetterToName(letter):
+    if letter.__contains__("K"):
         return "King"
-    elif chess_board[ver][hor].__contains__("Q"):
+    elif letter.__contains__("Q"):
         return "Queen"
-    elif chess_board[ver][hor].__contains__("B"):
+    elif letter.__contains__("B"):
         return "Bishop"
-    elif chess_board[ver][hor].__contains__("H"):
+    elif letter.__contains__("H"):
         return "Horse"
-    elif chess_board[ver][hor].__contains__("R"):
+    elif letter.__contains__("R"):
         return "Rook"
-    elif chess_board[ver][hor].__contains__("P"):
+    elif letter.__contains__("P"):
         return "Pawn"
 
     else:
-        return "404"
+        return "null"
+
+
+# Functie om de volledige naam om te zetten naar de letter op het bord
+def PieceNameToLetter(name):
+    if name.__contains__("King"):
+        return "K"
+    elif name.__contains__("Queen"):
+        return "Q"
+    elif name.__contains__("Bishop"):
+        return "B"
+    elif name.__contains__("Horse"):
+        return "H"
+    elif name.__contains__("Rook"):
+        return "R"
+    elif name.__contains__("Pawn"):
+        return "P"
+
+    else:
+        return "null"
+
+
+# Functie om de kleurnaam om te zetten in bruikbare code
+def PieceColorToCode(color):
+    if color == "white":
+        return Fore.BLUE
+    elif color == "black":
+        return Fore.BLACK
+    
+    else:
+        return "null"
+
+
+# Functie om de kleurcode om te zetten naar een string
+def PieceCodeToColor(code):
+    if code.__contains__(Fore.BLUE):
+        return "white"
+    elif code.__contains__(Fore.BLACK):
+        return "black"
+
+    else:
+        return "null"

@@ -1,7 +1,7 @@
 from colorama import Fore
 from Board import ClearBoard, DrawBoard
-from Piece import SetPiece, RemovePiece, GetPieceColor
-from Input import selectInput
+from Piece import SetPiece
+from Input import selectInput, destinationInput
 
 # Demo code
 ClearBoard()
@@ -12,4 +12,19 @@ SetPiece(4, 5, "K", Fore.BLUE)
 SetPiece(6, 4, "K", Fore.BLACK)
 
 DrawBoard()
-selectInput()
+
+
+def movePiece():
+    if selectInput() == True:
+        print("")
+
+        destinationInput()
+        movePiece()
+
+    else:
+        print("")
+        
+        movePiece()
+
+
+movePiece()
