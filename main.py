@@ -9,7 +9,7 @@ ClearBoard()
 SetPiece(3, 7, "R", Fore.BLUE)
 SetPiece(5, 6, "R", Fore.BLUE)
 SetPiece(4, 5, "K", Fore.BLUE)
-SetPiece(6, 4, "K", Fore.BLACK)
+SetPiece(6, 4, "K", Fore.RED)
 
 DrawBoard()
 

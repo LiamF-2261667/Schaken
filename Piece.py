@@ -87,7 +87,7 @@ def PieceColorToCode(color):
     if color == "white":
         return Fore.BLUE
     elif color == "black":
-        return Fore.BLACK
+        return Fore.RED
     
     else:
         return "null"
@@ -97,7 +97,7 @@ def PieceColorToCode(color):
 def PieceCodeToColor(code):
     if code.__contains__(Fore.BLUE):
         return "white"
-    elif code.__contains__(Fore.BLACK):
+    elif code.__contains__(Fore.RED):
         return "black"
 
     else:
