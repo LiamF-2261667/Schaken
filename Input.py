@@ -1,4 +1,5 @@
 import os
+from colorama import Fore
 
 from Piece import GetPieceType, GetPieceColor, SetPiece, PieceNameToLetter, PieceColorToCode, RemovePiece
 from Board import DrawBoard
@@ -33,21 +34,21 @@ def coordToNumbersArray(prompt):
     dest = list(input(prompt))
 
     if len(dest) < 2:
-        print("Foutieve invoer, geef eerst de letter en daarna het cijfer in!")
+        print(Fore.RED + "Foutieve invoer, geef eerst de letter en daarna het cijfer in!" + Fore.RESET)
         return "null"
 
     # Letter in een hoofdletter zetten
     letter = str.capitalize(dest[0])
     # Testen of de eerste invoer daadwerkelijk een letter is
     if str.isalpha(letter) == False:
-        print("Foutieve invoer, de eerst moet de letter gegeven worden!")
+        print(Fore.RED + "Foutieve invoer, als eerste moet de letter gegeven worden!" + Fore.RESET)
         return "null"
 
     # Testen als de tweede invoer daadwerkelijk een cijfer is en omzetten van een string naar een integer
     try: 
       number = int(dest[1])
     except ValueError:
-      print("Foutieve invoer, als tweede moet het cijfer gegeven worden!")
+      print(Fore.RED + "Foutieve invoer, als tweede moet het cijfer gegeven worden!" + Fore.RESET)
       return "null"
     
     # Selectie opslaan
@@ -56,15 +57,15 @@ def coordToNumbersArray(prompt):
 
     # Testen als de invoer een coordinaat kan zijn
     if hor == "null":
-        print("Deze letter behoord niet tot het schaakbord!")
+        print(Fore.RED + "Deze letter behoord niet tot het schaakbord!" + Fore.RESET)
         return "null"
     
     if ver > 8:
-        print("Dit nummer behoord niet tot het schaakbord!")
+        print(Fore.RED + "Dit nummer behoord niet tot het schaakbord!" + Fore.RESET)
         return "null"
     
     if ver < 1:
-        print("Dit nummer behoord niet tot het schaakbord!")
+        print(Fore.RED + "Dit nummer behoord niet tot het schaakbord!" + Fore.RESET)
         return "null"
     
     # destination returnen
@@ -87,11 +88,11 @@ def selectInput():
 
     # Testen als er een stuk daadwerkelijk is op deze positie
     if GetPieceType(hor, ver) == "null":
-        print("Er staat geen stuk op deze positie")
+        print(Fore.RED + "Er staat geen stuk op deze positie" + Fore.RESET)
         return False
     
     if GetPieceType(hor, ver) == "404":
-        print("ERROR: 404")
+        print(Fore.RED + "ERROR: 404" + Fore.RESET)
         return False
     
     # De selectie globaal maken
@@ -102,7 +103,7 @@ def selectInput():
     selectedVer = ver
 
     # Output
-    print("Er staat een " + GetPieceColor(hor, ver) + " " + GetPieceType(hor, ver) + " op het coordinaat " + letter + str(ver))
+    print(Fore.LIGHTGREEN_EX + "Er staat een " + GetPieceColor(hor, ver) + " " + GetPieceType(hor, ver) + " op het coordinaat " + letter + str(ver) + Fore.RESET)
     
     return True
 

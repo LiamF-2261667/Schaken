@@ -1,11 +1,9 @@
 from colorama import Fore
-from Board import ClearBoard, DrawBoard
+from Board import DrawBoard
 from Piece import SetPiece
 from Input import selectInput, destinationInput
 
 # Demo code
-ClearBoard()
-
 SetPiece(3, 7, "R", Fore.BLUE)
 SetPiece(5, 6, "R", Fore.BLUE)
 SetPiece(4, 5, "K", Fore.BLUE)
