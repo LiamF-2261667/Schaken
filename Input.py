@@ -147,7 +147,15 @@ def destinationInput():
         print(Fore.RED + "Er staat een stuk in de weg!" + Fore.RESET)
         return False
 
-    Board.chess_board_BAK = Board.chess_board
+    if str(legality) == "None":
+        print("legality = None")
+
+    # Informatie van het (mogenlijke) oude stuk verzamelen
+    pieceTypeOldStr = GetPieceType(hor, ver)
+    pieceTypeOld = PieceNameToLetter(pieceTypeOldStr)
+    
+    pieceColorOldStr = GetPieceColor(hor, ver)
+    pieceColorOld = PieceColorToCode(pieceColorOldStr)
 
     # Het oude stuk verwijderen en het nieuwe stuk plaatsen
     RemovePiece(selectedHor, selectedVer)
@@ -157,7 +165,14 @@ def destinationInput():
     # kijken als de koning in gevaar komt door de zet
     if isKingInDanger(PieceCodeToColor(pieceColor)):
         # Indien ja, herstel het bord
-        Board.chess_board = Board.chess_board_BAK
+        if pieceTypeOld == "null":
+            SetPiece(hor, ver, " ", "")
+            SetPiece(selectedHor, selectedVer, pieceType, pieceColor)
+            
+        else:
+            SetPiece(hor, ver, pieceTypeOld, pieceColorOld)
+            SetPiece(selectedHor, selectedVer, pieceType, pieceColor)
+
         print(Fore.RED + "Je brengt je koning in gevaar!" + Fore.RESET)
         return False
     

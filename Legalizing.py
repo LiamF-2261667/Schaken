@@ -1,4 +1,4 @@
-from Piece import GetPieceType, GetPieceColor, PieceColorToCode
+from Piece import GetPieceType, GetPieceColor, PieceNameToLetter
 
 
 def isLegal(currHor, currVer, destHor, destVer, type, color):
@@ -37,6 +37,8 @@ def isLegal(currHor, currVer, destHor, destVer, type, color):
 
     elif type == "P":
         return movePawn(currHor, currVer, destHor, destVer, color, False)
+    
+    print(str(type))
 
 
 def moveKing(currHor, currVer, destHor, destVer):
@@ -238,7 +240,6 @@ whiteKingVer = 1
 blackKingHor = 4
 blackKingVer = 8
 
-
 def isKingInDanger(color):
     for i in range(1, 9):
         for j in range(1, 9):
@@ -246,10 +247,12 @@ def isKingInDanger(color):
             pieceColor = GetPieceColor(i, j)
 
             if pieceType != "null" and pieceColor != color:
+
                 if color == "white":
-                    legality = isLegal(i, j, whiteKingHor, whiteKingVer, pieceType, PieceColorToCode("black"))
+                    legality = isLegal(i, j, whiteKingHor, whiteKingVer, PieceNameToLetter(pieceType), "black")
+
                 elif color == "black":
-                    legality = isLegal(i, j, blackKingHor, blackKingVer, pieceType, PieceColorToCode("white"))
+                    legality = isLegal(i, j, blackKingHor, blackKingVer, PieceNameToLetter(pieceType), "white")
 
                 if legality == "legal":
                     return True
