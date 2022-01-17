@@ -10,28 +10,26 @@ chess_board = [[" ", " ", " ", " ", " ", " ", " ", " "],
                [" ", " ", " ", " ", " ", " ", " ", " "],
                [" ", " ", " ", " ", " ", " ", " ", " "]]
 
-
-# Het schaakbord volledig leegmaken
-def ClearBoard():
-    global chess_board
-    chess_board = [[" ", " ", " ", " ", " ", " ", " ", " "],
-                   [" ", " ", " ", " ", " ", " ", " ", " "],
-                   [" ", " ", " ", " ", " ", " ", " ", " "],
-                   [" ", " ", " ", " ", " ", " ", " ", " "],
-                   [" ", " ", " ", " ", " ", " ", " ", " "],
-                   [" ", " ", " ", " ", " ", " ", " ", " "],
-                   [" ", " ", " ", " ", " ", " ", " ", " "],
-                   [" ", " ", " ", " ", " ", " ", " ", " "]]
+# Het aanmakan van een backup van het schaakbord
+chess_board_BAK = [[" ", " ", " ", " ", " ", " ", " ", " "],
+               [" ", " ", " ", " ", " ", " ", " ", " "],
+               [" ", " ", " ", " ", " ", " ", " ", " "],
+               [" ", " ", " ", " ", " ", " ", " ", " "],
+               [" ", " ", " ", " ", " ", " ", " ", " "],
+               [" ", " ", " ", " ", " ", " ", " ", " "],
+               [" ", " ", " ", " ", " ", " ", " ", " "],
+               [" ", " ", " ", " ", " ", " ", " ", " "]]
 
 
 # Het bord tekenen met elk stuk
 def DrawBoard():
-    # Horizontale coordinaten
-    print (" A  B  C  D  E  F  G  H ")
+    print("")
 
     # Uitvoeren voor elke rij
     for i in range(0,8):
-        line = ""
+        # verticale coordinaat toevoegen
+        lineNumber = 8 - i
+        line = str(lineNumber) + " "
 
         # Bepalen of het vakje donker of licht gekleurd moet zijn
         for j in range(0,8):
@@ -40,11 +38,13 @@ def DrawBoard():
             else:
                 line += Back.LIGHTBLACK_EX + Style.BRIGHT + " " + chess_board[i][j] + " "
 
-        # De achtergrondkleur stop zetten en de verticale coordinaat toevoegen
-        lineNumber = 8 - i
-        line += Back.RESET + " " + str(lineNumber)
+        # De achtergrondkleur stop zetten
+        line += Back.RESET
 
         # Het resultaat printen
         print(line)
         
+    # Horizontale coordinaten
+    print ("   A  B  C  D  E  F  G  H ")
+
     print("")

@@ -11,10 +11,9 @@ def isLegal(currHor, currVer, destHor, destVer, type, color):
     # Enkel uitvoeren als er al een stuk staat op de verlangde positie
     if destTypeStr != "null":
         destColorStr = GetPieceColor(destHor, destVer)
-        destColor = PieceColorToCode(destColorStr)
 
         # Als het stuk dat wordt genomen van uw eigen kleur is, mag dat niet
-        if destColor == color:
+        if destColorStr == color:
             return "taking self"
         else:
             if type == "P":
@@ -51,32 +50,104 @@ def moveKing(currHor, currVer, destHor, destVer):
 
 
 def moveQueen(currHor, currVer, destHor, destVer):
-    deltaX = abs(currHor - destHor)
-    deltaY = abs(currVer - destVer)
+    deltaX = destHor - currHor
+    deltaY = destVer - currVer
 
-    if deltaX == 0:
-        return "legal"
-
-    rico = abs(deltaY/deltaX)
-
-    if rico == 1 or rico == 0:
-        return "legal"
+    if deltaX == 0 or deltaY == 0:
+        if deltaX > 0:
+            for i in range(currHor + 1, destHor):
+                if GetPieceType(i, currVer) != "null":
+                    return "blocked"
     
+        if deltaX < 0:
+            for i in range(destHor + 1, currHor):
+                if GetPieceType(i, currVer) != "null":
+                    return "blocked"
+
+        if deltaY > 0:
+            for i in range(currVer + 1, destVer):
+                if GetPieceType(currHor, i) != "null":
+                    return "blocked"
+
+        if deltaY < 0:
+            for i in range(destVer + 1, currVer):
+                if GetPieceType(currHor, i) != "null":
+                    return "blocked"
+
+        return "legal"
+
+    rico = deltaY/deltaX
+    
+    if abs(rico) == 1:
+        j = 0
+        if deltaX > 0:
+            if deltaY > 0:
+                for i in range(currHor + 1, destHor):
+                    j += 1
+                    if GetPieceType(i, currVer + j) != "null":
+                        return "blocked"
+
+            if deltaY < 0:
+                for i in range(currHor + 1, destHor):
+                    j += 1
+                    if GetPieceType(i, currVer - j) != "null":
+                        return "blocked"
+        
+        if deltaX < 0:
+            if deltaY > 0:
+                for i in range(destHor + 1, currHor):
+                    j += 1
+                    if GetPieceType(i, destVer - j) != "null":
+                        return "blocked"
+            if deltaY < 0:
+                for i in range(destHor + 1, currHor):
+                    j += 1
+                    if GetPieceType(i, destVer + j) != "null":
+                        return "blocked"
+        
+        return "legal"
+
     return "illegal"
 
 def moveBishop(currHor, currVer, destHor, destVer):
-    deltaX = abs(currHor - destHor)
-    deltaY = abs(currVer - destVer)
+    deltaX = destHor - currHor
+    deltaY = destVer - currVer
 
     if deltaX == 0:
         return "illegal"
-
-    rico = abs(deltaY/deltaX)
-
-    if rico == 1:
-        return "legal"
     
-    return "illegal"
+    rico = deltaY/deltaX
+
+    if abs(rico) != 1:
+        return "illegal"
+
+    j = 0
+    if deltaX > 0:
+        if deltaY > 0:
+            for i in range(currHor + 1, destHor):
+                j += 1
+                if GetPieceType(i, currVer + j) != "null":
+                    return "blocked"
+
+        if deltaY < 0:
+            for i in range(currHor + 1, destHor):
+                j += 1
+                if GetPieceType(i, currVer - j) != "null":
+                    return "blocked"
+    
+    if deltaX < 0:
+        if deltaY > 0:
+            for i in range(destHor + 1, currHor):
+                j += 1
+                if GetPieceType(i, destVer - j) != "null":
+                    return "blocked"
+        if deltaY < 0:
+            for i in range(destHor + 1, currHor):
+                j += 1
+                if GetPieceType(i, destVer + j) != "null":
+                    return "blocked"
+
+    return "legal"
 
 def moveHorse(currHor, currVer, destHor, destVer):
     deltaX = abs(currHor - destHor)
@@ -91,8 +162,28 @@ def moveHorse(currHor, currVer, destHor, destVer):
     return "illegal"
 
 def moveRook(currHor, currVer, destHor, destVer):
-    deltaX = abs(currHor - destHor)
-    deltaY = abs(currVer - destVer)
+    deltaX = destHor - currHor
+    deltaY = destVer - currVer
+
+    if deltaX > 0:
+        for i in range(currHor + 1, destHor):
+            if GetPieceType(i, currVer) != "null":
+                return "blocked"
+    
+    if deltaX < 0:
+        for i in range(destHor + 1, currHor):
+            if GetPieceType(i, currVer) != "null":
+                return "blocked"
+
+    if deltaY > 0:
+        for i in range(currVer + 1, destVer):
+            if GetPieceType(currHor, i) != "null":
+                return "blocked"
+
+    if deltaY < 0:
+        for i in range(destVer + 1, currVer):
+            if GetPieceType(currHor, i) != "null":
+                return "blocked"
 
     if deltaX == 0 or deltaY == 0:
         return "legal"
@@ -118,7 +209,7 @@ def movePawn(currHor, currVer, destHor, destVer, color, isTakingPiece):
 
     if color == "white":
         if GetPieceType(destHor, destVer) != "null":
-            return "illegal"
+            return "blocked"
 
         if deltaY == -1:
             return "legal"
@@ -129,7 +220,7 @@ def movePawn(currHor, currVer, destHor, destVer, color, isTakingPiece):
 
     if color == "black":
         if GetPieceType(destHor, destVer) != "null":
-            return "illegal"
+            return "blocked"
             
         if deltaY == 1:
             return "legal"
@@ -139,3 +230,28 @@ def movePawn(currHor, currVer, destHor, destVer, color, isTakingPiece):
                 return "legal"
     
     return "illegal"
+
+
+whiteKingHor = 4
+whiteKingVer = 1
+
+blackKingHor = 4
+blackKingVer = 8
+
+
+def isKingInDanger(color):
+    for i in range(1, 9):
+        for j in range(1, 9):
+            pieceType = GetPieceType(i, j)
+            pieceColor = GetPieceColor(i, j)
+
+            if pieceType != "null" and pieceColor != color:
+                if color == "white":
+                    legality = isLegal(i, j, whiteKingHor, whiteKingVer, pieceType, PieceColorToCode("black"))
+                elif color == "black":
+                    legality = isLegal(i, j, blackKingHor, blackKingVer, pieceType, PieceColorToCode("white"))
+
+                if legality == "legal":
+                    return True
+
+    return False

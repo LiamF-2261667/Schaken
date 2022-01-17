@@ -1,7 +1,8 @@
 from colorama import Fore
 
-from Piece import GetPieceType, GetPieceColor, SetPiece, PieceNameToLetter, PieceColorToCode, RemovePiece
-from Legalizing import isLegal
+from Piece import GetPieceType, GetPieceColor, SetPiece, PieceNameToLetter, PieceColorToCode, RemovePiece, PieceCodeToColor
+from Legalizing import isLegal, isKingInDanger
+import Board
 
 
 # Een functie om de letters om te zetten in cijfers
@@ -142,9 +143,22 @@ def destinationInput():
         print(Fore.RED + "Je kan niet een eigen stuk nemen!" + Fore.RESET)
         return False
 
+    elif legality == "blocked":
+        print(Fore.RED + "Er staat een stuk in de weg!" + Fore.RESET)
+        return False
+
+    Board.chess_board_BAK = Board.chess_board
+
     # Het oude stuk verwijderen en het nieuwe stuk plaatsen
     RemovePiece(selectedHor, selectedVer)
 
     SetPiece(hor, ver, pieceType, pieceColor)
+
+    # kijken als de koning in gevaar komt door de zet
+    if isKingInDanger(PieceCodeToColor(pieceColor)):
+        # Indien ja, herstel het bord
+        Board.chess_board = Board.chess_board_BAK
+        print(Fore.RED + "Je brengt je koning in gevaar!" + Fore.RESET)
+        return False
     
     return True
