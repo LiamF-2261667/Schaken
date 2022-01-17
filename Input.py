@@ -1,8 +1,7 @@
-import os
 from colorama import Fore
 
 from Piece import GetPieceType, GetPieceColor, SetPiece, PieceNameToLetter, PieceColorToCode, RemovePiece
-from Board import DrawBoard
+from Legalizing import isLegal
 
 
 # Een functie om de letters om te zetten in cijfers
@@ -33,7 +32,7 @@ def coordToNumbersArray(prompt):
     # Aanvragen van de input en omzetten naar een array
     dest = list(input(prompt))
 
-    if len(dest) < 2:
+    if len(dest) != 2:
         print(Fore.RED + "Foutieve invoer, geef eerst de letter en daarna het cijfer in!" + Fore.RESET)
         return "null"
 
@@ -75,7 +74,7 @@ selectedHor = 1
 selectedVer = 1
 
 # Het selecteren van een stuk (bv: A6)
-def selectInput():
+def selectInput(currTeam):
     selected = coordToNumbersArray("Geef het coordinaat van het stuk dat u wilt selecteren: ")
 
     # Testen als de invoer correct was
@@ -93,6 +92,10 @@ def selectInput():
     
     if GetPieceType(hor, ver) == "404":
         print(Fore.RED + "ERROR: 404" + Fore.RESET)
+        return False
+
+    if GetPieceColor(hor, ver) != currTeam:
+        print(Fore.RED + "Het is de beurt van " + currTeam + "!" + Fore.RESET)
         return False
     
     # De selectie globaal maken
@@ -113,7 +116,7 @@ def destinationInput():
 
     # Testen als de invoer correct was
     if dest == "null":
-        return
+        return False
     
     hor = dest[0]
     ver = dest[1]
@@ -125,13 +128,23 @@ def destinationInput():
     pieceColorStr = GetPieceColor(selectedHor, selectedVer)
     pieceColor = PieceColorToCode(pieceColorStr)
 
+    # Kijken of de zet mogelijk is
+    legality = isLegal(selectedHor, selectedVer, hor, ver, pieceType, pieceColorStr)
+    if legality == "illegal":
+        print(Fore.RED + "Deze zet is niet mogelijk!" + Fore.RESET)
+        return False
+    
+    elif legality == "no movement":
+        print(Fore.RED + "Het stuk staat al op deze plaats!" + Fore.RESET)
+        return False
+    
+    elif legality == "taking self":
+        print(Fore.RED + "Je kan niet een eigen stuk nemen!" + Fore.RESET)
+        return False
+
     # Het oude stuk verwijderen en het nieuwe stuk plaatsen
     RemovePiece(selectedHor, selectedVer)
 
     SetPiece(hor, ver, pieceType, pieceColor)
-
-    # Clear de console
-    os.system("clear")
-
-    # Tekenen het bord met de aanpassing
-    DrawBoard()
+    
+    return True
