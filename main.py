@@ -9,6 +9,7 @@ from Input import selectInput, destinationInput
 # Intro
 intro.title()
 intro.help()
+intro.legende()
 input("Druk op ENTER om verder te gaan... ")
 
 # Alle stukken plaatsen

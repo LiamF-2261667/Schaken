@@ -23,3 +23,17 @@ def help():
     print("                                     ")
     print(Back.RESET + Fore.RESET)
 
+
+def legende():
+    print(Back.WHITE + Fore.BLACK)
+    print("                                     ")
+    print("  Legende                            ")
+    print(" ----------------------------------- ")
+    print("  P = Pawn   |  Pion                 ")
+    print("  R = Rook   |  Toren                ")
+    print("  H = Horse  |  Paard                ")
+    print("  B = Bishop |  Loper                ")
+    print("  Q = Queen  |  Koningin             ")
+    print("  K = King   |  Koning               ")
+    print("                                     ")
+    print(Back.RESET + Fore.RESET)
