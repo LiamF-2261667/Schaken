@@ -10,30 +10,6 @@ chess_board = [[" ", " ", " ", " ", " ", " ", " ", " "],
                [" ", " ", " ", " ", " ", " ", " ", " "],
                [" ", " ", " ", " ", " ", " ", " ", " "]]
 
-# Het aanmakan van een backup van het schaakbord
-chess_board_BAK = [[" ", " ", " ", " ", " ", " ", " ", " "],
-               [" ", " ", " ", " ", " ", " ", " ", " "],
-               [" ", " ", " ", " ", " ", " ", " ", " "],
-               [" ", " ", " ", " ", " ", " ", " ", " "],
-               [" ", " ", " ", " ", " ", " ", " ", " "],
-               [" ", " ", " ", " ", " ", " ", " ", " "],
-               [" ", " ", " ", " ", " ", " ", " ", " "],
-               [" ", " ", " ", " ", " ", " ", " ", " "]]
-
-
-def CreateBackup():
-    global chess_board_BAK
-    global chess_board
-
-    chess_board_BAK = chess_board
-
-
-def LoadBackup():
-    global chess_board_BAK
-    global chess_board
-
-    chess_board = chess_board_BAK
-
 
 # Het bord tekenen met elk stuk
 def DrawBoard():

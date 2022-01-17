@@ -5,7 +5,6 @@ import intro
 from Board import DrawBoard
 from Piece import SetPiece, PieceColorToCode
 from Input import selectInput, destinationInput
-import Input
 
 # Intro
 intro.title()
@@ -76,11 +75,12 @@ while looping:
     else:
         print("")
 
+    # De game eindigen
     if intro.finished != "none":
         looping = False
         system("clear")
+        print(PieceColorToCode(str.Capitalize(intro.finished)) + intro.finished + Fore.RESET + " heeft gewonnen!")
         print("Bedankt voor het spelen!")
-        print(intro.finished + " heeft gewonnen!")
 
 
 # TODO:
