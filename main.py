@@ -1,9 +1,15 @@
 from os import system
 from colorama import Fore
 
+import intro
 from Board import DrawBoard
 from Piece import SetPiece, PieceColorToCode
 from Input import selectInput, destinationInput
+
+# Intro
+intro.title()
+intro.help()
+input("Druk op ENTER om verder te gaan... ")
 
 # Alle stukken plaatsen
 SetPiece(1, 1, "R", Fore.BLUE)
