@@ -1,8 +1,8 @@
 from colorama import Fore
 
 from Piece import GetPieceType, GetPieceColor, SetPiece, PieceNameToLetter, PieceColorToCode, RemovePiece, PieceCodeToColor
-from Legalizing import isLegal, isKingInDanger
-import Board
+import Legalizing
+import intro
 
 
 # Een functie om de letters om te zetten in cijfers
@@ -130,7 +130,7 @@ def destinationInput():
     pieceColor = PieceColorToCode(pieceColorStr)
 
     # Kijken of de zet mogelijk is
-    legality = isLegal(selectedHor, selectedVer, hor, ver, pieceType, pieceColorStr)
+    legality = Legalizing.isLegal(selectedHor, selectedVer, hor, ver, pieceType, pieceColorStr)
     if legality == "illegal":
         print(Fore.RED + "Deze zet is niet mogelijk!" + Fore.RESET)
         return False
@@ -162,8 +162,15 @@ def destinationInput():
 
     SetPiece(hor, ver, pieceType, pieceColor)
 
+    if pieceType == "K":
+        if pieceColorStr == "white":
+            Legalizing.setWhiteKingPos(hor, ver)
+
+        if pieceColorStr == "black":
+            Legalizing.setBlackKingPos(hor, ver)
+
     # kijken als de koning in gevaar komt door de zet
-    if isKingInDanger(PieceCodeToColor(pieceColor)):
+    if Legalizing.isKingInDanger(PieceCodeToColor(pieceColor)):
         # Indien ja, herstel het bord
         if pieceTypeOld == "null":
             SetPiece(hor, ver, " ", "")
@@ -172,8 +179,23 @@ def destinationInput():
         else:
             SetPiece(hor, ver, pieceTypeOld, pieceColorOld)
             SetPiece(selectedHor, selectedVer, pieceType, pieceColor)
+        
+        if pieceType == "K":
+            if pieceColorStr == "white":
+                Legalizing.setWhiteKingPos(selectedHor, selectedVer)
+
+            if pieceColorStr == "black":
+                Legalizing.setBlackKingPos(selectedHor, selectedVer)
 
         print(Fore.RED + "Je brengt je koning in gevaar!" + Fore.RESET)
+        askIfCheckmate(PieceCodeToColor(pieceColor))
+
         return False
-    
+
     return True
+
+
+def askIfCheckmate(colorStr):
+    answer = input("Sta je schaakmat? [ja/nee]: ")
+    if answer == "ja":
+        intro.finished = colorStr

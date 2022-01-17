@@ -233,12 +233,25 @@ def movePawn(currHor, currVer, destHor, destVer, color, isTakingPiece):
     
     return "illegal"
 
-
-whiteKingHor = 4
+whiteKingHor = 5
 whiteKingVer = 1
 
-blackKingHor = 4
+blackKingHor = 5
 blackKingVer = 8
+
+def setWhiteKingPos(hor, ver):
+    global whiteKingHor
+    global whiteKingVer
+
+    whiteKingHor = hor
+    whiteKingVer = ver
+    
+def setBlackKingPos(hor, ver):
+    global blackKingHor
+    global blackKingVer
+
+    blackKingHor = hor
+    blackKingVer = ver
 
 def isKingInDanger(color):
     for i in range(1, 9):

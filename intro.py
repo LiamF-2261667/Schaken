@@ -1,5 +1,9 @@
 from colorama import Fore, Back
 
+
+finished = "none"
+
+
 def title():
     print(Back.WHITE + Fore.BLACK)
     print("   _____ _    _ ______  _____ _____  ")
