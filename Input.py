@@ -148,7 +148,7 @@ def destinationInput():
         return False
 
     if str(legality) == "None":
-        print("legality = None")
+        print("ERROR: legality = None")
 
     # Informatie van het (mogenlijke) oude stuk verzamelen
     pieceTypeOldStr = GetPieceType(hor, ver)
@@ -175,7 +175,7 @@ def destinationInput():
         if pieceTypeOld == "null":
             SetPiece(hor, ver, " ", "")
             SetPiece(selectedHor, selectedVer, pieceType, pieceColor)
-            
+
         else:
             SetPiece(hor, ver, pieceTypeOld, pieceColorOld)
             SetPiece(selectedHor, selectedVer, pieceType, pieceColor)
@@ -188,13 +188,14 @@ def destinationInput():
                 Legalizing.setBlackKingPos(selectedHor, selectedVer)
 
         print(Fore.RED + "Je brengt je koning in gevaar!" + Fore.RESET)
+        # Vraag als de speler schaakmat staat
         askIfCheckmate(PieceCodeToColor(pieceColor))
 
         return False
 
     return True
 
-
+# Als iemand schaak staat, vraag ik aan hem of hij schaakmat is
 def askIfCheckmate(colorStr):
     answer = input("Sta je schaakmat? [ja/nee]: ")
     if answer == "ja":

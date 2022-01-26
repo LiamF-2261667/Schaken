@@ -79,7 +79,12 @@ while looping:
     if intro.finished != "none":
         looping = False
         system("clear")
-        print(PieceColorToCode(str.Capitalize(intro.finished)) + intro.finished + Fore.RESET + " heeft gewonnen!")
+        
+        if intro.finished == "white":
+            print("Zwart" + Fore.RESET + " heeft gewonnen!")
+        else:
+            print("Wit" + Fore.RESET + " heeft gewonnen!")
+
         print("Bedankt voor het spelen!")
 
 
