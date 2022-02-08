@@ -1,8 +1,5 @@
 from colorama import Fore, Back
 
-# Een variabel om te kijken als een persoon heeft verloren (wordt gebruikt in andere files)
-finished = "none"
-
 
 def title():
     print(Back.WHITE + Fore.BLACK)

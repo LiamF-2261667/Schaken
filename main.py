@@ -4,7 +4,7 @@ from colorama import Fore
 import intro
 from Board import DrawBoard
 from Piece import SetPiece, PieceColorToCode
-from Input import selectInput, destinationInput
+import Input
 
 # Intro
 intro.title()
@@ -49,11 +49,11 @@ while looping:
     print("De beurt is aan " + PieceColorToCode(turn) + turn + "!" + Fore.RESET)
 
     # Als het selecteren van een stuk lukt
-    if selectInput(turn) == True:
+    if Input.selectInput(turn) == True:
         print("")
 
         # Als het verplaatsen van een stuk lukt
-        if destinationInput() == True:
+        if Input.destinationInput() == True:
             # De beurt veranderen
             if turn == "white": 
                 print("turn should now become black")
@@ -76,11 +76,11 @@ while looping:
         print("")
 
     # De game eindigen
-    if intro.finished != "none":
+    if Input.finished != "none":
         looping = False
         system("clear")
         
-        if intro.finished == "white":
+        if Input.finished == "white":
             print("Zwart" + Fore.RESET + " heeft gewonnen!")
         else:
             print("Wit" + Fore.RESET + " heeft gewonnen!")

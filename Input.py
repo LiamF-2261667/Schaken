@@ -147,8 +147,9 @@ def destinationInput():
         print(Fore.RED + "Er staat een stuk in de weg!" + Fore.RESET)
         return False
 
-    if str(legality) == "None":
+    elif legality == "None":
         print("ERROR: legality = None")
+
 
     # Informatie van het (mogenlijke) oude stuk verzamelen
     pieceTypeOldStr = GetPieceType(hor, ver)
@@ -170,7 +171,7 @@ def destinationInput():
             Legalizing.setBlackKingPos(hor, ver)
 
     # kijken als de koning in gevaar komt door de zet
-    if Legalizing.isKingInDanger(PieceCodeToColor(pieceColor)):
+    if Legalizing.isKingInDanger(pieceColorStr):
         # Indien ja, herstel het bord
         if pieceTypeOld == "null":
             SetPiece(hor, ver, " ", "")
@@ -195,8 +196,12 @@ def destinationInput():
 
     return True
 
+# Een variabel om te kijken als een persoon heeft verloren
+finished = "none"
+
 # Als iemand schaak staat, vraag ik aan hem of hij schaakmat is
 def askIfCheckmate(colorStr):
     answer = input("Sta je schaakmat? [ja/nee]: ")
     if answer == "ja":
-        intro.finished = colorStr
+        global finished
+        finished = colorStr

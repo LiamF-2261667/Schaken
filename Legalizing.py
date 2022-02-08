@@ -25,7 +25,7 @@ def isLegal(currHor, currVer, destHor, destVer, type, color):
     
     # Kijken of de zet mogelijk is volgens het type stuk
     if type == "K":
-        return moveKing(currHor, currVer, destHor, destVer)
+        return moveKing(currHor, currVer, destHor, destVer, color)
 
     elif type == "Q":
         return moveQueen(currHor, currVer, destHor, destVer)
@@ -45,7 +45,7 @@ def isLegal(currHor, currVer, destHor, destVer, type, color):
     print("ERROR: Type " + str(type) + " onbekend!")
 
 
-def moveKing(currHor, currVer, destHor, destVer):
+def moveKing(currHor, currVer, destHor, destVer, color):
     deltaX = abs(currHor - destHor)
     deltaY = abs(currVer - destVer)
 
@@ -53,6 +53,9 @@ def moveKing(currHor, currVer, destHor, destVer):
     if deltaX > 1 or deltaY > 1:
         return "illegal"
      
+    # Als de koning beweegt kan hij geen rokade meer doen
+    if color == "white": whiteCanRokade = False
+    elif color == "black": blackCanRokade = False
     return "legal"
 
 
